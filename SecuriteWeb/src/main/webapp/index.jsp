@@ -35,9 +35,9 @@
         <h2 class="form-signin-heading">Welcome to Plate-forme payement</h2>
         <br />
         <br />
-        <input type="text" name="amount" id="amount" class="form-control" placeholder="Montant" >
-        <input type="text" name="nomberCard" id="nomberCard" class="form-control" placeholder="Card Nomber" >
-        <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" >
+        <input type="text" name="amount" id="amount"  class="form-control" placeholder="Montant" >
+        <input type="text" name="nomberCard" id="nomberCard" check-type="required" required-message="input error!" class="form-control" placeholder="Card Nomber" >
+        <input type="password" name="inputPassword" id="inputPassword" check-type="required" required-message="input error!" class="form-control" placeholder="Password" >
         <br />
         <a href="logup.jsp"><button class="btn btn-lg btn-primary " type="button">Enregistrement</button></a>
         <button class="btn btn-lg btn-primary " type="submit"> Payement </button>
