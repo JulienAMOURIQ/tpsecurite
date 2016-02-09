@@ -7,6 +7,8 @@
   <version>0.0.1-SNAPSHOT</version>
   <name>SecuriteWeb Maven Webapp</name>
   <url>http://maven.apache.org</url>
+  
+  
   <dependencies>
     <dependency>
       <groupId>junit</groupId>
@@ -15,6 +17,8 @@
       <scope>test</scope>
     </dependency>
   </dependencies>
+  
+  
   <build>
     <finalName>SecuriteWeb</finalName>
   </build>
