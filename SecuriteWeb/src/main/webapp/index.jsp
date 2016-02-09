@@ -40,7 +40,7 @@
         <input type="password" name="inputPassword" id="inputPassword" class="form-control" placeholder="Password" >
         <br />
         <a href="logup.jsp"><button class="btn btn-lg btn-primary " type="button">Enregistrement</button></a>
-        <button class="btn btn-lg btn-primary " type="submit"> Submit </button>
+        <button class="btn btn-lg btn-primary " type="submit"> Payement </button>
       </form>
 
     </div> <!-- /container -->

@@ -27,19 +27,24 @@
 			if (rs.next()) {
 				name = rs.getString("NAME_USER");
 				date_expriration=rs.getDate("DATE_EXPRIRATION");
-				System.out.println(date+" "+date_expriration);
+				
 				if(date.before(date_expriration)){
 					double tmpAmount = rs.getDouble("SOLDE");
-					stmt.executeUpdate(
-							"UPDATE CARDS SET SOLDE=" + (tmpAmount - amount) + " WHERE ID_CARD='" + nomberCard + "'");
-					resultat = "Congratulations, you have payed " + amount + " euros!";
+					if(tmpAmount<=amount){
+						stmt.executeUpdate(
+								"UPDATE CARDS SET SOLDE=" + (tmpAmount - amount) + " WHERE ID_CARD='" + nomberCard + "'");
+						resultat = "Congratulations, you have payed " + amount + " euros!";
+					}else{
+						resultat = name+", Account balance is insufficient!";
+					}
+					
 				}else{
-					resultat="Your card expired!";
+					resultat=name+", Your card expired!";
 				}
 				
 
 			} else {
-				resultat = "Card Nomber is not existe";
+				resultat = "Card Nomber is not existe!";
 			}
 			//conn.close();
 		} catch (Exception e) {

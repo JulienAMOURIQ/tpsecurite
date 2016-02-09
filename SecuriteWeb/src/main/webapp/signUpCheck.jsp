@@ -30,7 +30,7 @@
 				resultat="Congratulations, "+name+"! Enregistrement success!";
 			}
 			
-			conn.close();
+			//conn.close();
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
