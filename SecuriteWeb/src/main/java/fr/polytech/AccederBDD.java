@@ -89,7 +89,7 @@ public class AccederBDD {
 									+ nomberCard + "'");
 							resultat = "Congratulations, you have payed " + amount + " euros!";
 						} else {
-							resultat = name + ", Account balance is insufficient!";
+							resultat = "Account balance is insufficient!";
 						}
 
 					} else {

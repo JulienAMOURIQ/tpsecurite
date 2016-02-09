@@ -20,7 +20,7 @@ public class AccederBDDTest extends TestCase {
 		
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498746541", "M. DUPONT", Date.valueOf("2018-05-01"), 50.);
 		try {
-			accederBDD.ajouterCarte(carteBanquaire);
+			assertEquals("Congratulations, " + carteBanquaire.getNom() + "! Enregistrement success!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -31,7 +31,8 @@ public class AccederBDDTest extends TestCase {
 		
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498746541", "M. DUPONT", Date.valueOf("2018-05-01"), -50.);
 		try {
-			accederBDD.ajouterCarte(carteBanquaire);
+			assertEquals("Error input!", accederBDD.ajouterCarte(carteBanquaire));
+			//accederBDD.ajouterCarte(carteBanquaire);
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -42,7 +43,7 @@ public class AccederBDDTest extends TestCase {
 		
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123 498746541", "M. DUPONT", Date.valueOf("2018-05-01"), -50.);
 		try {
-			accederBDD.ajouterCarte(carteBanquaire);
+			assertEquals("Error input!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -53,7 +54,8 @@ public class AccederBDDTest extends TestCase {
 		String nombreCarte="4974384998761238";
 		double amount=50.;
 		try {
-			accederBDD.payement(nombreCarte, amount);
+			assertEquals("Congratulations, you have payed " + amount + " euros!",accederBDD.payement(nombreCarte, amount));
+			
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -65,7 +67,8 @@ public class AccederBDDTest extends TestCase {
 		String nombreCarte="4974384998761111";
 		double amount=50.;
 		try {
-			accederBDD.payement(nombreCarte, amount);
+			
+			assertEquals("Card Nomber is not existe!",accederBDD.payement(nombreCarte, amount));
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -77,7 +80,7 @@ public class AccederBDDTest extends TestCase {
 		String nombreCarte="4974384998761238";
 		double amount=-50.;
 		try {
-			accederBDD.payement(nombreCarte, amount);
+			assertEquals("Error input!","Card Nomber is not existe!",accederBDD.payement(nombreCarte, amount));
 		} catch (InvalidAttributeValueException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
