@@ -12,13 +12,14 @@ import javax.management.InvalidAttributeValueException;
 public class AccederBDD {
 	public String ajouterCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
 		String resultat = "";
-		Connection conn=null;
-		String nombreCard=org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
-		if (carte == null) {
+		Connection conn = null;
+		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
+		if (carte.equals(null)) {
 			resultat = "information error!";
 			throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
-			if (carte.getNombreCarte()==null || carte.getNom() == null || carte.getDate() == null || carte.getSolde() < 0 || carte.getNombreCarte().indexOf(" ") != -1) {
+			if (carte.getNombreCarte() == null || carte.getNom() == null || carte.getDate() == null
+					|| carte.getSolde() < 0 || carte.getNombreCarte().indexOf(" ") != -1) {
 				resultat = "Error input!";
 				throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 
@@ -33,8 +34,8 @@ public class AccederBDD {
 						resultat = "Card nomber existe!";
 					} else {
 
-						stmt.execute("INSERT INTO CARDS VALUES('" + carte.getNombreCarte() + "','" + carte.getNom() + "','" + carte.getDate() + "',"
-								+ carte.getSolde() + ")");
+						stmt.execute("INSERT INTO CARDS VALUES('" + nombreCard + "','" + carte.getNom()
+								+ "','" + carte.getDate() + "'," + carte.getSolde() + ")");
 						resultat = "Congratulations, " + carte.getNom() + "! Enregistrement success!";
 
 					}
@@ -59,13 +60,43 @@ public class AccederBDD {
 		return resultat;
 
 	}
-	
-	public String payement(String nombreCarte, double amount) throws InvalidAttributeValueException{
-		String resultat="";
-		Connection conn=null;
-		String nomberCard=org.apache.commons.codec.digest.DigestUtils.sha256Hex(nombreCarte);
-		String name="";
-		Date date_expriration=null;
+
+	public void supprimerCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
+		Connection conn = null;
+		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
+		if (carte.equals(null)) {
+
+			throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+		} else {
+
+			try {
+				Class.forName("org.h2.Driver");
+				conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+				// add application code here
+				Statement stmt = conn.createStatement();
+				stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
+
+			} catch (Exception e) {
+				e.printStackTrace();
+			} finally {
+				try {
+					conn.close();
+				} catch (SQLException e) {
+					e.printStackTrace();
+				}
+
+			}
+
+		}
+
+	}
+
+	public String payement(String nombreCarte, double amount) throws InvalidAttributeValueException {
+		String resultat = "";
+		Connection conn = null;
+		String nomberCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(nombreCarte);
+		String name = "";
+		Date date_expriration = null;
 		Date date = new Date(System.currentTimeMillis());
 
 		if (nombreCarte == null || amount < 0 || nombreCarte.indexOf(" ") != -1) {
@@ -99,7 +130,7 @@ public class AccederBDD {
 				} else {
 					resultat = "Card Nomber is not existe!";
 				}
-				//conn.close();
+				// conn.close();
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
@@ -112,10 +143,9 @@ public class AccederBDD {
 				}
 			}
 		}
-		
-		
+
 		return resultat;
-		
+
 	}
 
 }
