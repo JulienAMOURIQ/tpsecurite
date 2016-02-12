@@ -17,12 +17,14 @@ public class AccederBDD {
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 			resultat = "information error!";
-			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			// throw new
+			// InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 			if (carte.getNombreCarte() == null || carte.getNom() == null || carte.getDate() == null
 					|| carte.getSolde() < 0 || carte.getNombreCarte().indexOf(" ") != -1) {
 				resultat = "Error input!";
-				//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+				// throw new
+				// InvalidAttributeValueException("InvalidAttributeValueException!");
 
 			} else {
 				try {
@@ -35,8 +37,8 @@ public class AccederBDD {
 						resultat = "Card nomber existe!";
 					} else {
 
-						stmt.execute("INSERT INTO CARDS VALUES('" + nombreCard + "','" + carte.getNom()
-								+ "','" + carte.getDate() + "'," + carte.getSolde() + ")");
+						stmt.execute("INSERT INTO CARDS VALUES('" + nombreCard + "','" + carte.getNom() + "','"
+								+ carte.getDate() + "'," + carte.getSolde() + ")");
 						resultat = "Congratulations, " + carte.getNom() + "! Enregistrement success!";
 
 					}
@@ -67,7 +69,8 @@ public class AccederBDD {
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 
-			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			// throw new
+			// InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 
 			try {
@@ -102,7 +105,8 @@ public class AccederBDD {
 
 		if (nombreCarte == null || amount < 0 || nombreCarte.indexOf(" ") != -1) {
 			resultat = "Error input!";
-			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			// throw new
+			// InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 			try {
 				Class.forName("org.h2.Driver");
@@ -148,26 +152,44 @@ public class AccederBDD {
 		return resultat;
 
 	}
-	
-	public void creerTable(){
-		Connection conn=null;
-		
+
+	public void creerTable() {
+		Connection conn = null;
+
 		try {
 			Class.forName("org.h2.Driver");
 			conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
 			// add application code here
-			//Statement stmt = conn.createStatement();
-			String sql="CREATE TABLE CARDS(ID_CARD VARCHAR(255) PRIMARY KEY,NAME_USER VARCHAR(255),DATE_EXPRIRATION DATE,SOLDE DOUBLE)";
-
+			// Statement stmt = conn.createStatement();
+			String sql = "CREATE TABLE CARDS(ID_CARD VARCHAR(255) PRIMARY KEY,NAME_USER VARCHAR(255),DATE_EXPRIRATION DATE,SOLDE DOUBLE)";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.execute();
-			
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+
+	}
+
+	public void supprimerTable() {
+		Connection conn = null;
+
+		try {
+			Class.forName("org.h2.Driver");
+			conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+			// add application code here
+			// Statement stmt = conn.createStatement();
+			String sql = "drop table CARDS";
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.execute();
+
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 
 }

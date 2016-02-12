@@ -5,7 +5,9 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import javax.management.InvalidAttributeValueException;
+import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,6 +21,11 @@ public class AccederBDDTest {
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498746541", "M. DUPONT", Date.valueOf("2018-05-01"), 50.);
 		accederBDD.ajouterCarte(carteBanquaire);
 		
+	}
+	
+	@After
+	public void Close(){
+		accederBDD.supprimerTable();
 	}
 
 	@Test
