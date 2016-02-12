@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TestUnitaire21 {
+public class TestPayementCas1 {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,20 +23,31 @@ public class TestUnitaire21 {
   }
 
   @Test
-  public void testUnitaire21() throws Exception {
-    driver.get(baseUrl + "/SecuriteWeb/logup.jsp");
+  public void testPayementCas1() throws Exception {
+    driver.get(baseUrl + "/SecuriteWeb/signUpCheck.jsp");
+    driver.findElement(By.linkText("go back")).click();
+    driver.findElement(By.xpath("//button[@type='button']")).click();
     driver.findElement(By.id("amount")).clear();
     driver.findElement(By.id("amount")).sendKeys("50");
     driver.findElement(By.id("nomberCard")).clear();
-    driver.findElement(By.id("nomberCard")).sendKeys("4970123 498746541");
+    driver.findElement(By.id("nomberCard")).sendKeys("4970123498746541");
+    driver.findElement(By.id("inputPassword")).clear();
+    driver.findElement(By.id("inputPassword")).sendKeys("001");
     driver.findElement(By.id("name")).clear();
     driver.findElement(By.id("name")).sendKeys("M. DUPONT");
     driver.findElement(By.id("date")).clear();
     driver.findElement(By.id("date")).sendKeys("2018-05-01");
+    driver.findElement(By.id("amount")).clear();
+    driver.findElement(By.id("amount")).sendKeys("500");
+    driver.findElement(By.xpath("//button[@type='submit']")).click();
+    driver.findElement(By.linkText("go back")).click();
+    driver.findElement(By.xpath("//button[@type='button']")).click();
+    driver.findElement(By.id("amount")).clear();
+    driver.findElement(By.id("amount")).sendKeys("30");
     driver.findElement(By.id("inputPassword")).clear();
     driver.findElement(By.id("inputPassword")).sendKeys("001");
     driver.findElement(By.id("nomberCard")).clear();
-    driver.findElement(By.id("nomberCard")).sendKeys("4970123498  746541");
+    driver.findElement(By.id("nomberCard")).sendKeys("4970123498746541");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 

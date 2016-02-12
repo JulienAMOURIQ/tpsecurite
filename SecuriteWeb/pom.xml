@@ -28,4 +28,19 @@
   <build>
     <finalName>SecuriteWeb</finalName>
   </build>
+  <dependencyManagement>  
+        <dependencies>  
+            <dependency>  
+                <groupId>com.opera</groupId>  
+                <artifactId>operadriver</artifactId>  
+                <version>0.16</version>  
+                <exclusions>  
+                    <exclusion>  
+                        <groupId>org.seleniumhq.selenium</groupId>  
+                        <artifactId>selenium-remote-driver</artifactId>  
+                    </exclusion>  
+                </exclusions>  
+            </dependency>  
+        </dependencies>  
+    </dependencyManagement>
 </project>

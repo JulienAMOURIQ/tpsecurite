@@ -9,7 +9,7 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.support.ui.Select;
 
-public class TestUnitaire41 {
+public class TestAjouterCarteCas2 {
   private WebDriver driver;
   private String baseUrl;
   private boolean acceptNextAlert = true;
@@ -23,14 +23,19 @@ public class TestUnitaire41 {
   }
 
   @Test
-  public void testUnitaire41() throws Exception {
+  public void testAjouterCarteCas2() throws Exception {
     driver.get(baseUrl + "/SecuriteWeb/index.jsp?action=transparams&detail=directe");
+    driver.findElement(By.xpath("//button[@type='button']")).click();
     driver.findElement(By.id("amount")).clear();
-    driver.findElement(By.id("amount")).sendKeys("50");
+    driver.findElement(By.id("amount")).sendKeys("-50");
     driver.findElement(By.id("nomberCard")).clear();
-    driver.findElement(By.id("nomberCard")).sendKeys("4970123498746555");
+    driver.findElement(By.id("nomberCard")).sendKeys("4970123498746541");
     driver.findElement(By.id("inputPassword")).clear();
     driver.findElement(By.id("inputPassword")).sendKeys("001");
+    driver.findElement(By.id("name")).clear();
+    driver.findElement(By.id("name")).sendKeys("M. DUPONT");
+    driver.findElement(By.id("date")).clear();
+    driver.findElement(By.id("date")).sendKeys("2018-05-01");
     driver.findElement(By.xpath("//button[@type='submit']")).click();
   }
 

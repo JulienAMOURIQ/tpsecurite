@@ -16,12 +16,12 @@ public class AccederBDD {
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 			resultat = "information error!";
-			throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 			if (carte.getNombreCarte() == null || carte.getNom() == null || carte.getDate() == null
 					|| carte.getSolde() < 0 || carte.getNombreCarte().indexOf(" ") != -1) {
 				resultat = "Error input!";
-				throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+				//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 
 			} else {
 				try {
@@ -101,7 +101,7 @@ public class AccederBDD {
 
 		if (nombreCarte == null || amount < 0 || nombreCarte.indexOf(" ") != -1) {
 			resultat = "Error input!";
-			throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 			try {
 				Class.forName("org.h2.Driver");

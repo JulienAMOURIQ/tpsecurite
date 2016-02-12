@@ -14,7 +14,6 @@
 		double amount = Double.parseDouble(request.getParameter("amount"));
 		String nomber = request.getParameter("nomberCard");
 
-		
 		String name = request.getParameter("name");
 		Date date = Date.valueOf(request.getParameter("date"));
 
