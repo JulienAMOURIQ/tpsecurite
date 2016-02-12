@@ -3,6 +3,7 @@ package fr.polytech;
 import java.sql.Connection;
 import java.sql.Date;
 import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -26,7 +27,7 @@ public class AccederBDD {
 			} else {
 				try {
 					Class.forName("org.h2.Driver");
-					conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
+					conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
 					// add application code here
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -71,7 +72,7 @@ public class AccederBDD {
 
 			try {
 				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
 				// add application code here
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -105,7 +106,7 @@ public class AccederBDD {
 		} else {
 			try {
 				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
 				// add application code here
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nomberCard + "'");
@@ -146,6 +147,27 @@ public class AccederBDD {
 
 		return resultat;
 
+	}
+	
+	public void creerTable(){
+		Connection conn=null;
+		
+		try {
+			Class.forName("org.h2.Driver");
+			conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+			// add application code here
+			//Statement stmt = conn.createStatement();
+			String sql="CREATE TABLE CARDS(ID_CARD VARCHAR(255) PRIMARY KEY,NAME_USER VARCHAR(255),DATE_EXPRIRATION DATE,SOLDE DOUBLE)";
+
+
+			PreparedStatement stmt = conn.prepareStatement(sql);
+			stmt.execute();
+			
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
 	}
 
 }

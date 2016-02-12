@@ -1,5 +1,6 @@
 
 <!DOCTYPE html>
+<%@page import="fr.polytech.AccederBDD"%>
 <html>
   <head>
     <meta charset="utf-8">
@@ -30,7 +31,9 @@
 
   <body>
     <div class="container">
-
+		<%AccederBDD acceder=new AccederBDD();
+    		acceder.creerTable();
+    		%>
       <form class="form-signin" method="post" action="check.jsp">
         <div class="form-group">
         <h2 class="form-signin-heading">Welcome to Plate-forme payement</h2>

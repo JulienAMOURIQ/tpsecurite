@@ -146,13 +146,12 @@ public class AccederBDDTest {
 	public void testPayement_cas5() {
 		/*Account balance is insufficient*/
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498741123", "M. LOUIS", Date.valueOf("2018-05-01"), 50.);
-		try {
+		/*try {
 			accederBDD.supprimerCarte(carteBanquaire);
 			accederBDD.ajouterCarte(carteBanquaire);
 		} catch (InvalidAttributeValueException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		double amount=250.;
 		try {
