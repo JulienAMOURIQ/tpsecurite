@@ -26,7 +26,7 @@ public class AccederBDD {
 			} else {
 				try {
 					Class.forName("org.h2.Driver");
-					conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+					conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
 					// add application code here
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -71,7 +71,7 @@ public class AccederBDD {
 
 			try {
 				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
 				// add application code here
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -105,7 +105,7 @@ public class AccederBDD {
 		} else {
 			try {
 				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:~/test", "sa", "");
+				conn = DriverManager.getConnection("jdbc:h2:./src/main/resources/test", "sa", "");
 				// add application code here
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nomberCard + "'");
