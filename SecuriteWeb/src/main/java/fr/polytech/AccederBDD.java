@@ -66,7 +66,7 @@ public class AccederBDD {
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 
-			throw new InvalidAttributeValueException("InvalidAttributeValueException!");
+			//throw new InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 
 			try {

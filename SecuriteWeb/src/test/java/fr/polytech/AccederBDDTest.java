@@ -73,18 +73,18 @@ public class AccederBDDTest {
 	@Test
 	public void testPayement_cas1() {
 		/*tous les parametres sont correct*/
-		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498748888", "M. Piano", Date.valueOf("2018-05-01"), 88888.);
+		/*CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498748888", "M. Piano", Date.valueOf("2018-05-01"), 88888.);
 		try {
 			accederBDD.supprimerCarte(carteBanquaire);
 			accederBDD.ajouterCarte(carteBanquaire);
 		} catch (InvalidAttributeValueException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
-		
-		double amount=50.;
+		}*/
+		String nomber="4970123498746541";
+		double amount=5.;
 		try {
-			assertEquals("Congratulations, you have payed " + amount + " euros!",accederBDD.payement(carteBanquaire.getNombreCarte(), amount));
+			assertEquals("Congratulations, you have payed " + amount + " euros!",accederBDD.payement(nomber, amount));
 			
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
@@ -124,13 +124,13 @@ public class AccederBDDTest {
 	public void testPayement_cas4() {
 		/*la carte expire*/
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498741123", "M. LOUIS", Date.valueOf("2015-05-01"), 50.);
-		try {
+		/*try {
 			accederBDD.supprimerCarte(carteBanquaire);
 			accederBDD.ajouterCarte(carteBanquaire);
 		} catch (InvalidAttributeValueException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		double amount=50.;
 		try {
@@ -146,13 +146,13 @@ public class AccederBDDTest {
 	public void testPayement_cas5() {
 		/*Account balance is insufficient*/
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498741123", "M. LOUIS", Date.valueOf("2018-05-01"), 50.);
-		try {
+		/*try {
 			accederBDD.supprimerCarte(carteBanquaire);
 			accederBDD.ajouterCarte(carteBanquaire);
 		} catch (InvalidAttributeValueException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
-		}
+		}*/
 		
 		double amount=250.;
 		try {
@@ -168,7 +168,7 @@ public class AccederBDDTest {
 	public void testPayement_cas6() {
 		/*la carte n'existe pas!*/
 		String nombreCarte="4970123498748812";
-		double amount=-50.;
+		double amount=50.;
 		try {
 			assertEquals("Card Nomber is not existe!",accederBDD.payement(nombreCarte, amount));
 			
