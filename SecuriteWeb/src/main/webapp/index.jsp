@@ -30,10 +30,7 @@
   </head>
 
   <body>
-    <div class="container">
-		<%AccederBDD acceder=new AccederBDD();
-    		acceder.creerTable();
-    		%>
+    <div class="container">	
       <form class="form-signin" method="post" action="check.jsp">
         <div class="form-group">
         <h2 class="form-signin-heading">Welcome to Plate-forme payement</h2>
