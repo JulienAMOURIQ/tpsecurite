@@ -39,8 +39,9 @@
 				<artifactId>tomcat-maven-plugin</artifactId>
 				<configuration>
 					<server>tomcat8</server>
-					<url>http://localhost:8080/</url>
+					<url>http://localhost:8081/</url>
 					<path>/</path>
+					<port>8081</port>
 					
 					<!-- <warFile>${project.build.directory}/SecuriteWeb.war</warFile> -->
 				</configuration>
