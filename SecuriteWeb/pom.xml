@@ -38,9 +38,9 @@
         <artifactId>maven-glassfish-plugin</artifactId>
         <version>2.1</version>
         <configuration>
-          <glassfishDirectory>${glassfish.home}</glassfishDirectory>
-          <user>${domain.username}</user>
-          <adminPassword>${domain.password}</adminPassword>
+          <glassfishDirectory>./testGlassFish</glassfishDirectory>
+          <user>admin</user>
+          <adminPassword>admin</adminPassword>
           <!-- <passFile>path/to/asadmin/passfile</passFile> -->
           <autoCreate>true</autoCreate>
           <debug>true</debug>
