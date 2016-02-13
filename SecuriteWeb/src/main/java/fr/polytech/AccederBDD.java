@@ -11,9 +11,36 @@ import java.sql.Statement;
 import javax.management.InvalidAttributeValueException;
 
 public class AccederBDD {
+	Connection conn = null;
+	String dbpath = null;
+	
+	public AccederBDD() {
+		super();
+		this.dbpath = "jdbc:h2:~/test2";
+	}
+	
+	public AccederBDD(String dbpath) {
+		super();
+		this.dbpath = dbpath;
+	}
+	
+	private void Connection() throws Exception{
+		if(conn != null){
+			throw new Exception("D¨¦j¨¤ connect¨¦");
+		}
+		Class.forName("org.h2.Driver");
+		conn = DriverManager.getConnection(dbpath, "sa", "");
+	}
+	
+	private void Deconnection() throws SQLException{
+		if(conn!=null){
+			conn.close();
+			conn=null;
+		}	
+	}
+
 	public String ajouterCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
 		String resultat = "";
-		Connection conn = null;
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 			resultat = "information error!";
@@ -28,8 +55,7 @@ public class AccederBDD {
 
 			} else {
 				try {
-					Class.forName("org.h2.Driver");
-					conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+					Connection();
 					// add application code here
 					Statement stmt = conn.createStatement();
 					ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -49,7 +75,7 @@ public class AccederBDD {
 					e.printStackTrace();
 				} finally {
 					try {
-						conn.close();
+						Deconnection();
 					} catch (SQLException e) {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
@@ -65,7 +91,6 @@ public class AccederBDD {
 	}
 
 	public void supprimerCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
-		Connection conn = null;
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 
@@ -74,8 +99,7 @@ public class AccederBDD {
 		} else {
 
 			try {
-				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+				Connection();
 				// add application code here
 				Statement stmt = conn.createStatement();
 				stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
@@ -84,7 +108,7 @@ public class AccederBDD {
 				e.printStackTrace();
 			} finally {
 				try {
-					conn.close();
+					Deconnection();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}
@@ -97,7 +121,6 @@ public class AccederBDD {
 
 	public String payement(String nombreCarte, double amount) throws InvalidAttributeValueException {
 		String resultat = "";
-		Connection conn = null;
 		String nomberCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(nombreCarte);
 		String name = "";
 		Date date_expriration = null;
@@ -109,8 +132,7 @@ public class AccederBDD {
 			// InvalidAttributeValueException("InvalidAttributeValueException!");
 		} else {
 			try {
-				Class.forName("org.h2.Driver");
-				conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+				Connection();
 				// add application code here
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nomberCard + "'");
@@ -141,7 +163,7 @@ public class AccederBDD {
 				e.printStackTrace();
 			} finally {
 				try {
-					conn.close();
+					Deconnection();
 				} catch (SQLException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -154,11 +176,9 @@ public class AccederBDD {
 	}
 
 	public void creerTable() {
-		Connection conn = null;
 
 		try {
-			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+			Connection();
 			// add application code here
 			// Statement stmt = conn.createStatement();
 			String sql = "CREATE TABLE CARDS(ID_CARD VARCHAR(255) PRIMARY KEY,NAME_USER VARCHAR(255),DATE_EXPRIRATION DATE,SOLDE DOUBLE)";
@@ -169,16 +189,21 @@ public class AccederBDD {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			try {
+				Deconnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
 
 	public void supprimerTable() {
-		Connection conn = null;
 
 		try {
-			Class.forName("org.h2.Driver");
-			conn = DriverManager.getConnection("jdbc:h2:~/test2", "sa", "");
+			Connection();
 			// add application code here
 			// Statement stmt = conn.createStatement();
 			String sql = "drop table CARDS";
