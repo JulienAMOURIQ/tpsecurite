@@ -11,6 +11,8 @@ import java.sql.Statement;
 import javax.management.InvalidAttributeValueException;
 
 public class AccederBDD {
+	Connection conn = null;
+	
 	public String ajouterCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
 		String resultat = "";
 		Connection conn = null;
