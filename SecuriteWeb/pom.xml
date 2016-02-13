@@ -1,109 +1,66 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.polytech.di</groupId>
-  <artifactId>SecuriteWeb</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>SecuriteWeb Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-     <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.4</version>
-   
-    </dependency>
-   <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.2.140</version>
-    </dependency>
-  </dependencies>
-  
-  
-  <build>
-    <finalName>SecuriteWeb</finalName>
-    <plugins>
-      <plugin>
-        <groupId>org.glassfish.maven.plugin</groupId>
-        <artifactId>maven-glassfish-plugin</artifactId>
-        <version>2.1</version>
-        <configuration>
-          <glassfishDirectory>./testGlassFish</glassfishDirectory>
-          <user>admin</user>
-          <adminPassword>admin</adminPassword>
-          <!-- <passFile>path/to/asadmin/passfile</passFile> -->
-          <autoCreate>true</autoCreate>
-          <debug>true</debug>
-          <echo>false</echo>
-          <terse>true</terse>
-          <skip>${test.int.skip}</skip>
-          <domain>
-            <name>${project.artifactId}</name>
-            <adminPort>4848</adminPort>
-            <httpPort>8080</httpPort>
-            <httpsPort>8443</httpsPort>
-            <iiopPort>3700</iiopPort>
-            <jmsPort>7676</jmsPort>
-            <reuse>false</reuse>
-            <jvmOptions>
-              <option>-Djava.security.auth.login.config=${project.build.testOutputDirectory}/login.conf</option>
-            </jvmOptions>
-            <properties>
-              <property>
-                <name>server.log-service.file</name>
-                <value>${domain.log.dir}/server.log</value>
-              </property>
-            </properties>
-            <auth>
-              <realm>
-                <name>testRealm</name>
-                <className>com.sun.enterprise.security.auth.realm.file.FileRealm</className>
-                <properties>
-                  <property>
-                    <name>jaas-context</name>
-                    <value>test</value>
-                  </property>
-                  <property>
-                    <name>file</name>
-                    <value>${project.build.outputDirectory}/keyfile</value>
-                  </property>
-                </properties>
-              </realm>
-            </auth>
-          </domain>
-          <components>
-            <component>
-                <name>${project.artifactId}</name>
-                <artifact>${project.build.directory}/artifacts/${project.build.finalName}.war</artifact>
-            </component>
-          </components>
-        </configuration>
-      </plugin>
-    </plugins>
-  </build>
-  <dependencyManagement>  
-        <dependencies>  
-            <dependency>  
-                <groupId>com.opera</groupId>  
-                <artifactId>operadriver</artifactId>  
-                <version>0.16</version>  
-                <exclusions>  
-                    <exclusion>  
-                        <groupId>org.seleniumhq.selenium</groupId>  
-                        <artifactId>selenium-remote-driver</artifactId>  
-                    </exclusion>  
-                </exclusions>  
-            </dependency>  
-        </dependencies>  
-    </dependencyManagement>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.polytech.di</groupId>
+	<artifactId>SecuriteWeb</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SecuriteWeb Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
+
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.2.140</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>SecuriteWeb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<server>tomcat8</server>
+					<url>http://localhost:8080/</url>
+					<path>/</path>
+					
+					<!-- <warFile>${project.build.directory}/SecuriteWeb.war</warFile> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.opera</groupId>
+				<artifactId>operadriver</artifactId>
+				<version>0.16</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.seleniumhq.selenium</groupId>
+						<artifactId>selenium-remote-driver</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>
