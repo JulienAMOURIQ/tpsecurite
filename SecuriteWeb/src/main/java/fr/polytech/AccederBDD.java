@@ -41,7 +41,6 @@ public class AccederBDD {
 
 	public String ajouterCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
 		String resultat = "";
-		Connection conn = null;
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 			resultat = "information error!";
@@ -92,7 +91,6 @@ public class AccederBDD {
 	}
 
 	public void supprimerCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
-		Connection conn = null;
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
 		if (carte.equals(null)) {
 
@@ -123,7 +121,6 @@ public class AccederBDD {
 
 	public String payement(String nombreCarte, double amount) throws InvalidAttributeValueException {
 		String resultat = "";
-		Connection conn = null;
 		String nomberCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(nombreCarte);
 		String name = "";
 		Date date_expriration = null;
@@ -179,7 +176,6 @@ public class AccederBDD {
 	}
 
 	public void creerTable() {
-		Connection conn = null;
 
 		try {
 			Connection();
@@ -193,12 +189,18 @@ public class AccederBDD {
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
+		} finally{
+			try {
+				Deconnection();
+			} catch (SQLException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 		}
 
 	}
 
 	public void supprimerTable() {
-		Connection conn = null;
 
 		try {
 			Connection();
