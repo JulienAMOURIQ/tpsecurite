@@ -1,51 +1,67 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
-  <modelVersion>4.0.0</modelVersion>
-  <groupId>com.polytech.di</groupId>
-  <artifactId>SecuriteWeb</artifactId>
-  <packaging>war</packaging>
-  <version>0.0.1-SNAPSHOT</version>
-  <name>SecuriteWeb Maven Webapp</name>
-  <url>http://maven.apache.org</url>
-  
-  
-  <dependencies>
-    <dependency>
-      <groupId>junit</groupId>
-      <artifactId>junit</artifactId>
-      <version>4.12</version>
-      <scope>test</scope>
-    </dependency>
-     <dependency>
-      <groupId>commons-codec</groupId>
-      <artifactId>commons-codec</artifactId>
-      <version>1.4</version>
-   
-    </dependency>
-   <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <version>1.2.140</version>
-    </dependency>
-  </dependencies>
-  
-  
-  <build>
-    <finalName>SecuriteWeb</finalName>
-  </build>
-  <dependencyManagement>  
-        <dependencies>  
-            <dependency>  
-                <groupId>com.opera</groupId>  
-                <artifactId>operadriver</artifactId>  
-                <version>0.16</version>  
-                <exclusions>  
-                    <exclusion>  
-                        <groupId>org.seleniumhq.selenium</groupId>  
-                        <artifactId>selenium-remote-driver</artifactId>  
-                    </exclusion>  
-                </exclusions>  
-            </dependency>  
-        </dependencies>  
-    </dependencyManagement>
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	<groupId>com.polytech.di</groupId>
+	<artifactId>SecuriteWeb</artifactId>
+	<packaging>war</packaging>
+	<version>0.0.1-SNAPSHOT</version>
+	<name>SecuriteWeb Maven Webapp</name>
+	<url>http://maven.apache.org</url>
+
+
+	<dependencies>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>commons-codec</groupId>
+			<artifactId>commons-codec</artifactId>
+			<version>1.4</version>
+
+		</dependency>
+		<dependency>
+			<groupId>com.h2database</groupId>
+			<artifactId>h2</artifactId>
+			<version>1.2.140</version>
+		</dependency>
+
+	</dependencies>
+
+
+	<build>
+		<finalName>SecuriteWeb</finalName>
+		<plugins>
+			<plugin>
+				<groupId>org.codehaus.mojo</groupId>
+				<artifactId>tomcat-maven-plugin</artifactId>
+				<configuration>
+					<server>tomcat8</server>
+					<url>http://localhost:8081/</url>
+					<path>/</path>
+					<port>8081</port>
+					
+					<!-- <warFile>${project.build.directory}/SecuriteWeb.war</warFile> -->
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+	<dependencyManagement>
+		<dependencies>
+			<dependency>
+				<groupId>com.opera</groupId>
+				<artifactId>operadriver</artifactId>
+				<version>0.16</version>
+				<exclusions>
+					<exclusion>
+						<groupId>org.seleniumhq.selenium</groupId>
+						<artifactId>selenium-remote-driver</artifactId>
+					</exclusion>
+				</exclusions>
+			</dependency>
+		</dependencies>
+	</dependencyManagement>
 </project>

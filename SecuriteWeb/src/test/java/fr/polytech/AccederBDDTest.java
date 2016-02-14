@@ -5,7 +5,6 @@ import static org.junit.Assert.*;
 import java.sql.Date;
 
 import javax.management.InvalidAttributeValueException;
-import javax.swing.plaf.basic.BasicInternalFrameTitlePane.CloseAction;
 
 import org.junit.After;
 import org.junit.Before;
