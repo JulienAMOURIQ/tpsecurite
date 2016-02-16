@@ -36,8 +36,8 @@ public class AccederBDDTest {
 			accederBDD.supprimerCarte(carteBanquaire);
 			assertEquals("Congratulations, " + carteBanquaire.getNom() + "! Enregistrement success!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Supprimer la carte.");
 		}
 	}
 	@Test
@@ -49,8 +49,8 @@ public class AccederBDDTest {
 			accederBDD.supprimerCarte(carteBanquaire);
 			assertEquals("Error input!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Ajouter la carte.");
 		}
 	}
 	@Test
@@ -62,8 +62,8 @@ public class AccederBDDTest {
 			accederBDD.supprimerCarte(carteBanquaire);
 			assertEquals("Error input!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD.");
 		}
 	}
 	@Test
@@ -75,30 +75,22 @@ public class AccederBDDTest {
 			accederBDD.ajouterCarte(carteBanquaire);
 			assertEquals("Card nomber existe!", accederBDD.ajouterCarte(carteBanquaire));
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Ajouter la carte.");
 		}
 	}
 
 	@Test
 	public void testPayement_cas1() {
-		/*tous les parametres sont correct*/
-		/*CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498748888", "M. Piano", Date.valueOf("2018-05-01"), 88888.);
-		try {
-			accederBDD.supprimerCarte(carteBanquaire);
-			accederBDD.ajouterCarte(carteBanquaire);
-		} catch (InvalidAttributeValueException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}*/
+
 		String nomber="4970123498746541";
 		double amount=5.;
 		try {
 			assertEquals("Congratulations, you have payed " + amount + " euros!",accederBDD.payement(nomber, amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}
@@ -111,8 +103,8 @@ public class AccederBDDTest {
 			assertEquals("Error input!",accederBDD.payement(nombreCarte, amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}
@@ -125,8 +117,8 @@ public class AccederBDDTest {
 			assertEquals("Error input!",accederBDD.payement(nombreCarte, amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}
@@ -134,21 +126,16 @@ public class AccederBDDTest {
 	public void testPayement_cas4() {
 		/*la carte expire*/
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498741123", "M. LOUIS", Date.valueOf("2015-05-01"), 50.);
-		try {
-			accederBDD.supprimerCarte(carteBanquaire);
-			accederBDD.ajouterCarte(carteBanquaire);
-		} catch (InvalidAttributeValueException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		accederBDD.supprimerCarte(carteBanquaire);
+		accederBDD.ajouterCarte(carteBanquaire);
 		
 		double amount=50.;
 		try {
 			assertEquals(carteBanquaire.getNom() + ", Your card expired!",accederBDD.payement(carteBanquaire.getNombreCarte(), amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}
@@ -156,20 +143,16 @@ public class AccederBDDTest {
 	public void testPayement_cas5() {
 		/*Account balance is insufficient*/
 		CarteBanquaire carteBanquaire=new CarteBanquaire("4970123498741123", "M. LOUIS", Date.valueOf("2018-05-01"), 50.);
-		try {
-			accederBDD.supprimerCarte(carteBanquaire);
-			accederBDD.ajouterCarte(carteBanquaire);
-		} catch (InvalidAttributeValueException e1) {
-			e1.printStackTrace();
-		}
+		accederBDD.supprimerCarte(carteBanquaire);
+		accederBDD.ajouterCarte(carteBanquaire);
 		
 		double amount=250.;
 		try {
 			assertEquals("Account balance is insufficient!",accederBDD.payement(carteBanquaire.getNombreCarte(), amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}
@@ -182,8 +165,8 @@ public class AccederBDDTest {
 			assertEquals("Card Nomber is not existe!",accederBDD.payement(nombreCarte, amount));
 			
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ид la BD:Paiement.");
 		}
 		
 	}

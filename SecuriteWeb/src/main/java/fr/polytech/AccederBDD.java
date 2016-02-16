@@ -39,108 +39,110 @@ public class AccederBDD {
 		}	
 	}
 
-	public String ajouterCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
+	private String checkCarte(CarteBanquaire carte){
 		String resultat = "";
+		if (carte.getNombreCarte() == null) {
+			resultat = "Error input!";
+		}
+		if (carte.getNom() == null) {
+			resultat = "Error input!";
+		}
+
+		if (carte.getDate() == null) {
+			resultat = "Error input!";
+		}
+		if (carte.getSolde() < 0) {
+			resultat = "Error input!";
+		}
+		if (carte.getNombreCarte().indexOf(" ") != -1) {
+			resultat = "Error input!";
+		}
+		return resultat;
+	}
+	public String ajouterCarte(CarteBanquaire carte) {
+		String resultat = checkCarte(carte);
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
-		if (carte.equals(null)) {
-			resultat = "information error!";
-			// throw new
-			// InvalidAttributeValueException("InvalidAttributeValueException!");
-		} else {
-			if (carte.getNombreCarte() == null || carte.getNom() == null || carte.getDate() == null
-					|| carte.getSolde() < 0 || carte.getNombreCarte().indexOf(" ") != -1) {
-				resultat = "Error input!";
-				// throw new
-				// InvalidAttributeValueException("InvalidAttributeValueException!");
+		
+		if (resultat != "Error input!") {
+			try {
+				Connection();
+				// add application code here
+				Statement stmt = conn.createStatement();
+				ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
+				if (rs.next()) {
+					resultat = "Card nomber existe!";
+				} else {
 
-			} else {
-				try {
-					Connection();
-					// add application code here
-					Statement stmt = conn.createStatement();
-					ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
-					if (rs.next()) {
-						resultat = "Card nomber existe!";
-					} else {
-
-						stmt.execute("INSERT INTO CARDS VALUES('" + nombreCard + "','" + carte.getNom() + "','"
-								+ carte.getDate() + "'," + carte.getSolde() + ")");
-						resultat = "Congratulations, " + carte.getNom() + "! Enregistrement success!";
-
-					}
-
-					// conn.close();
-				} catch (Exception e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				} finally {
-					try {
-						Deconnection();
-					} catch (SQLException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
-					}
+					stmt.execute("INSERT INTO CARDS VALUES('" + nombreCard + "','" + carte.getNom() + "','"
+							+ carte.getDate() + "'," + carte.getSolde() + ")");
+					resultat = "Congratulations, " + carte.getNom() + "! Enregistrement success!";
 
 				}
-			}
 
+			} catch (Exception e) {
+
+				System.out.println("Impossible d'acceder ¨¤ la BD.");
+				
+			} finally {
+				try {
+					Deconnection();
+				} catch (SQLException e) {
+
+					System.out.println("Impossible de se d¨¦connecter de la BD.");
+				}
+
+			}
 		}
 
 		return resultat;
 
 	}
 
-	public void supprimerCarte(CarteBanquaire carte) throws InvalidAttributeValueException {
+	public void supprimerCarte(CarteBanquaire carte)  {
 		String nombreCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(carte.getNombreCarte());
-		if (carte.equals(null)) {
+		try {
+			Connection();
+			// add application code here
+			Statement stmt = conn.createStatement();
+			stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
 
-			// throw new
-			// InvalidAttributeValueException("InvalidAttributeValueException!");
-		} else {
+		} catch (Exception e) {
 
+			System.out.println("Impossible d'acceder ¨¤ la BD.");
+		} finally {
 			try {
-				Connection();
-				// add application code here
-				Statement stmt = conn.createStatement();
-				stmt.executeUpdate("DELETE FROM CARDS WHERE ID_CARD='" + nombreCard + "'");
+				Deconnection();
+			} catch (SQLException e) {
 
-			} catch (Exception e) {
-				e.printStackTrace();
-			} finally {
-				try {
-					Deconnection();
-				} catch (SQLException e) {
-					e.printStackTrace();
-				}
-
+				System.out.println("Impossible de se d¨¦connecter de la BD.");
 			}
 
 		}
 
 	}
 
+	
+
 	public String payement(String nombreCarte, double amount) throws InvalidAttributeValueException {
 		String resultat = "";
 		String nomberCard = org.apache.commons.codec.digest.DigestUtils.sha256Hex(nombreCarte);
 		String name = "";
-		Date date_expriration = null;
+		Date dateExpriration = null;
 		Date date = new Date(System.currentTimeMillis());
 
 		if (nombreCarte == null || amount < 0 || nombreCarte.indexOf(" ") != -1) {
 			resultat = "Error input!";
-			// throw new
-			// InvalidAttributeValueException("InvalidAttributeValueException!");
+
 		} else {
 			try {
 				Connection();
-				// add application code here
 				Statement stmt = conn.createStatement();
 				ResultSet rs = stmt.executeQuery("SELECT * FROM CARDS WHERE ID_CARD='" + nomberCard + "'");
 				if (rs.next()) {
 					name = rs.getString("NAME_USER");
-					date_expriration = rs.getDate("DATE_EXPRIRATION");
+					dateExpriration = rs.getDate("DATE_EXPRIRATION");
 
-					if (date.before(date_expriration)) {
+					if (date.before(dateExpriration)) {
 						double tmpAmount = rs.getDouble("SOLDE");
 						if (tmpAmount >= amount) {
 							stmt.executeUpdate("UPDATE CARDS SET SOLDE=" + (tmpAmount - amount) + " WHERE ID_CARD='"
@@ -157,16 +159,15 @@ public class AccederBDD {
 				} else {
 					resultat = "Card Nomber is not existe!";
 				}
-				// conn.close();
+
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				System.out.println("Impossible d'acceder ¨¤ la BD.");
 			} finally {
 				try {
 					Deconnection();
 				} catch (SQLException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
+
+					System.out.println("Impossible de se d¨¦connecter de la BD.");
 				}
 			}
 		}
@@ -179,22 +180,21 @@ public class AccederBDD {
 
 		try {
 			Connection();
-			// add application code here
-			// Statement stmt = conn.createStatement();
+
 			String sql = "CREATE TABLE CARDS(ID_CARD VARCHAR(255) PRIMARY KEY,NAME_USER VARCHAR(255),DATE_EXPRIRATION DATE,SOLDE DOUBLE)";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.execute();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ¨¤ la BD.");
 		} finally{
 			try {
 				Deconnection();
 			} catch (SQLException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+
+				System.out.println("Impossible de se d¨¦connecter de la BD.");
 			}
 		}
 
@@ -204,16 +204,15 @@ public class AccederBDD {
 
 		try {
 			Connection();
-			// add application code here
-			// Statement stmt = conn.createStatement();
+
 			String sql = "drop table CARDS";
 
 			PreparedStatement stmt = conn.prepareStatement(sql);
 			stmt.execute();
 
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
+
+			System.out.println("Impossible d'acceder ¨¤ la BD.");
 		}
 	}
 
